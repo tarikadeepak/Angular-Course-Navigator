@@ -1,0 +1,19 @@
+<h1>Course Navigator</h1>
+<div class="row">
+  <div class="col-3">
+    <ul class="list-group">
+      <li class="active list-group-item">
+        Courses
+      </li>
+      <li *ngFor="let course of courses"
+          (click)="selectCourse(course)"
+          [ngClass]="{active: course.id === selectedCourse.id}"
+          class="webdev list-group-item">
+          {{course.title}}
+      </li>
+    </ul>
+  </div>
+  <div class="col-3">Modules</div>
+  <div class="col-3">Lessons</div>
+  <div class="col-3">Widgets</div>
+</div>
