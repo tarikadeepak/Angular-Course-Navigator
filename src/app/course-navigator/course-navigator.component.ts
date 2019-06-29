@@ -11,10 +11,15 @@ export class CourseNavigatorComponent implements OnInit {
   constructor(private service: CourseNavigatorService) { }
 
   courses = []
+  modules = []
   selectedCourse = {}
 
-  selectCourse = course =>
+  selectCourse = course => {
     this.selectedCourse = course;
+    this.service
+      .findModulesForCourse(course.id)
+      .then(modules => this.modules = modules);
+  }
 
   ngOnInit() {
     this.service
