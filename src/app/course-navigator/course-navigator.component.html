@@ -5,11 +5,26 @@
       <li class="active list-group-item">
         Courses
       </li>
+      <li class="list-group-item">
+        <div class="input-group">
+        <input class="border-0 overflow-hidden" placeholder="Course Name" #courseTitle/>
+          <span class="input-group-btn">
+            <button class="btn-sm" style="width: 55px"
+                    (click)="addCourse(courseTitle.value)"
+                    name="addButton">
+            Add</button>
+          </span>
+        </div>
+      </li>
       <li *ngFor="let course of courses"
-          (click)="selectCourse(course)"
+          (click)="selectCourse($event, course)"
           [ngClass]="{active: course.id === selectedCourse.id}"
           class="webdev list-group-item">
           {{course.title}}
+        <button class="float-right btn-sm" style="width: 55px"
+          (click)="deleteCourse(course)"
+          name="deleteButton"
+        >Delete</button>
       </li>
     </ul>
   </div>
@@ -19,11 +34,22 @@
         Modules
       </li>
       <li *ngFor="let module of modules"
+          (click)="selectModule(module)"
+          [ngClass]="{active: module.id === selectedModule.id}"
           class="webdev list-group-item">
         {{module.title}}
       </li>
     </ul>
   </div>
-  <div class="col-3">Lessons</div>
-  <div class="col-3">Widgets</div>
+  <div class="col-3">
+    <ul class="list-group">
+      <li class="active list-group-item">
+        Lessons
+      </li>
+      <li *ngFor="let lesson of lessons"
+          class="webdev list-group-item">
+        {{lesson.title}}
+      </li>
+    </ul>
+  </div>
 </div>
