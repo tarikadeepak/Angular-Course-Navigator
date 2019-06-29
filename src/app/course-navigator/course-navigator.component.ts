@@ -13,8 +13,21 @@ export class CourseNavigatorComponent implements OnInit {
   courses = []
   modules = []
   lessons = []
-  selectedCourse = {}
-  selectedModule = {}
+  selectedCourse = {
+    created: null,
+    id: null,
+    modified: null,
+    modules: Array [20],
+    title: null
+  }
+  selectedModule = {
+    courseTitle: null,
+    id: null,
+    title: null
+  }
+  addCourseName = ''
+  addModuleName = ''
+  addLessonName = ''
 
   selectCourse = ($event, course) => {
     if ($event.target.name === 'deleteButton') {
@@ -36,28 +49,80 @@ export class CourseNavigatorComponent implements OnInit {
       .then(lessons => this.lessons = lessons);
   }
 
+  addCourse = course => {
+    this.service
+      .createCourse(course)
+      .then(() => this.findCourses())
+      .then(() => this.clear());
+  }
+
+  addModule = module => {
+    this.service
+      .createModule(module, this.selectedCourse.id)
+      .then(() => {
+        this.service
+          .findModulesForCourse(this.selectedCourse.id)
+          .then(modules => this.modules = modules)
+          .then(() =>  {this.addModuleName = null; }
+          );
+      });
+  }
+
+  addLesson = lesson => {
+    console.log('selected Module ', this.selectedModule)
+    this.service
+      .createLesson(lesson, this.selectedModule.id)
+      .then(() => {
+        this.service
+          .findLessonsForModule(this.selectedModule.id)
+          .then(lessons => this.lessons = lessons)
+          .then(() => {this.addLessonName = null; }
+          );
+      });
+  }
+
   deleteCourse = course => {
-    console.log('courses before delete ' , this.courses);
-    this.selectedCourse = {};
+    this.selectedCourse = {
+      created: null,
+      id: null,
+      modified: null,
+      modules: Array [20],
+      title: null
+    };
     this.service
       .deleteCourse(course.id)
     const index = this.courses.indexOf(course);
     if (index !== -1) {
         this.courses.splice(index, 1);
     }
-    console.log('courses after delete ' , this.courses);
   }
 
-  addCourse = course => {
-    console.log('Add Course Title ' , course);
+  deleteModule = module => {
+    this.selectedModule = {
+      courseTitle: null,
+      id: null,
+      title: null
+    };
     this.service
-      .createCourse(course);
+      .deleteModule(module.id, this.selectedCourse.id)
+    const index = this.modules.indexOf(module);
+    if (index !== -1) {
+      this.modules.splice(index, 1);
+    }
+  }
+
+  clear() {
+    this.addCourseName = null;
   }
 
   ngOnInit() {
+    this.findCourses();
+  }
+
+  findCourses() {
     this.service
       .findAllCourses()
-      .then(courses => this.courses = courses)
+      .then(courses => this.courses = courses);
   }
 
 }

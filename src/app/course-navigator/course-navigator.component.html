@@ -7,12 +7,14 @@
       </li>
       <li class="list-group-item">
         <div class="input-group">
-        <input class="border-0 overflow-hidden" placeholder="Course Name" #courseTitle/>
+        <input class="border-0 overflow-hidden" placeholder="Course Name" style="width: 177px;
+              padding-right: 10px" [value]="addCourseName" #courseTitle/>
           <span class="input-group-btn">
-            <button class="btn-sm" style="width: 55px"
+            <i class="fa fa-plus float-right" aria-hidden="true" style="color: #3245ff; margin-left: 61px;
+                    margin-top: 5px"
                     (click)="addCourse(courseTitle.value)"
                     name="addButton">
-            Add</button>
+            </i>
           </span>
         </div>
       </li>
@@ -21,10 +23,11 @@
           [ngClass]="{active: course.id === selectedCourse.id}"
           class="webdev list-group-item">
           {{course.title}}
-        <button class="float-right btn-sm" style="width: 55px"
-          (click)="deleteCourse(course)"
-          name="deleteButton"
-        >Delete</button>
+          <i class="fa fa-trash float-right" aria-hidden="true" style="color: #ff614e"
+             (click)="deleteCourse(course)"
+             name="deleteButton">
+           </i>
+
       </li>
     </ul>
   </div>
@@ -33,11 +36,28 @@
       <li class="active list-group-item">
         Modules
       </li>
+      <li class="list-group-item">
+        <div class="input-group">
+          <input class="border-0 overflow-hidden" placeholder="Module Name" style="width: 177px;
+              padding-right: 10px" [value]="addModuleName" #moduleTitle/>
+          <span class="input-group-btn">
+            <i class="fa fa-plus float-right" aria-hidden="true" style="color: #3245ff; margin-left: 61px;
+                    margin-top: 5px"
+               (click)="addModule(moduleTitle.value)"
+               name="addButton">
+            </i>
+          </span>
+        </div>
+      </li>
       <li *ngFor="let module of modules"
           (click)="selectModule(module)"
           [ngClass]="{active: module.id === selectedModule.id}"
           class="webdev list-group-item">
         {{module.title}}
+        <i class="fa fa-trash float-right" aria-hidden="true" style="color: #ff614e"
+           (click)="deleteModule(module)"
+           name="deleteButton">
+        </i>
       </li>
     </ul>
   </div>
@@ -46,9 +66,26 @@
       <li class="active list-group-item">
         Lessons
       </li>
+      <li class="list-group-item">
+        <div class="input-group">
+          <input class="border-0 overflow-hidden" placeholder="Lesson Name" style="width: 177px;
+              padding-right: 10px" [value]="addLessonName" #lessonTitle/>
+          <span class="input-group-btn">
+            <i class="fa fa-plus float-right" aria-hidden="true" style="color: #3245ff; margin-left: 61px;
+                    margin-top: 5px"
+               (click)="addLesson(lessonTitle.value)"
+               name="addButton">
+            </i>
+          </span>
+        </div>
+      </li>
       <li *ngFor="let lesson of lessons"
           class="webdev list-group-item">
         {{lesson.title}}
+        <i class="fa fa-trash float-right" aria-hidden="true" style="color: #ff614e"
+           (click)="deleteLesson(lesson)"
+           name="deleteButton">
+        </i>
       </li>
     </ul>
   </div>
