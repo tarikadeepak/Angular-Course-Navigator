@@ -39,7 +39,7 @@ export class CourseNavigatorService{
   }
 
   deleteLesson(lessonId, moduleId) {
-    return fetch((`http://localhost:8080/api/course/${courseId}/module/${moduleId}`), {
+    return fetch((`http://localhost:8080/api/course/module/${moduleId}/lesson/${lessonId}`), {
       headers: {
         'Content-Type' : 'application/json'
       },

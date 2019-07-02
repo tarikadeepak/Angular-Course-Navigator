@@ -111,6 +111,15 @@ export class CourseNavigatorComponent implements OnInit {
     }
   }
 
+  deleteLesson = lesson => {
+    this.service
+      .deleteLesson(lesson.id, this.selectedModule.id)
+    const index = this.lessons.indexOf(lesson);
+    if (index !== -1) {
+      this.lessons.splice(index, 1);
+    }
+  }
+
   clear() {
     this.addCourseName = null;
   }
